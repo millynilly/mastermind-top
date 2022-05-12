@@ -2,21 +2,30 @@
 
 require_relative 'game.rb'
 require_relative 'input.rb'
+require_relative 'code.rb'
 
-GUESS_MAX = 12
 
 game = Game.new
 game.print_intro
 
-until game.win? || game.guesses == GUESS_MAX
+code = game.code
+code.generate_code
 
-  inpt = Input.new(gets.chomp)
-  # until inpt.validate
-  #   inpt = Input.new(gets.chomp)
-  # end
-  
-  game.feedback(inpt.input)
-  
+
+until game.win? || game.guesses == game.GUESS_MAX
+
+  #Get guess
+  input = Input.new(gets.chomp)
+
+  until input.validate
+    puts 'wah'
+    input = Input.new(gets.chomp)
+  end
+
+  guess = Code.new(input.input)
+
+  puts code.score_guess(guess)
+  game.increment(guesses)
 
 end
 
