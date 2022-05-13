@@ -13,10 +13,9 @@ class Code
   
   def score_guess(guess)
     #eg returns ['XX', 'O']
-    
+
     score = ['', '']
     code = @code.split('')
-    
     digits = guess.code.split('')
     
     #Xs

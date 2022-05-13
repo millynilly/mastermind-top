@@ -1,21 +1,24 @@
+require_relative 'input.rb'
 require_relative 'code.rb'
+
 
 class Game
 
   @code
   @score
+  @guess
   @guesses
   @GUESS_MAX
 
   attr_reader :code, :guesses, :GUESS_MAX
-  attr_accessor :score
+  attr_accessor :score, :guess
 
 
   def initialize
     @code = Code.new()
     @score = ['', '']
     @guesses = 0
-    @GUESS_MAX = 2
+    @GUESS_MAX = 12
     print_intro
   end
   
@@ -27,6 +30,21 @@ class Game
   
   def win?
     @score[0] == 'XXXX' ? true : false
+  end
+  
+  
+  def get_guess
+    @input = Input.new(gets.chomp)
+    until @input.validate
+      puts 'Invalid input.'
+      @input = Input.new(gets.chomp)
+    end
+    @guess = Code.new(@input.input)
+  end
+
+
+  def get_score
+    @score = @code.score_guess(@guess)
   end
 
 
