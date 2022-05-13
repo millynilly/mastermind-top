@@ -1,6 +1,7 @@
 class Input
 
-  @input = ''
+  @input
+  DIGITS = [*1..6]
 
   attr_reader :input
 
@@ -10,13 +11,14 @@ class Input
 
 
   def validate
-    #Checks for 'p' 'q' or numeric string
+    #Checks for numeric string of 4 digits between 1 and 6.
 
-    return true if @input == 'p' or @input == 'q'
-    return true if @input.to_i.to_s == @input
-  
-    puts "Invalid input. Enter 'p', 'q', or a four digit number (digits between 1 and 6)."
-    false
+    return false unless @input.to_i.to_s == @input
+    return false unless @input.length == 4
+
+    @input.split('').all? do |char|
+      DIGITS.include?(char.to_i)
+    end
   end
 
 

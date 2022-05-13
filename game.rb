@@ -2,23 +2,42 @@ require_relative 'code.rb'
 
 class Game
 
-  @code = ''
-  @score = []
-  @guesses  = 0
-  @@GUESS_MAX = 12
+  @code
+  @score
+  @guesses
+  @GUESS_MAX
 
-  attr_reader :code
-  attr_reader :score
-  attr_reader :guesses
-  attr_reader :GUESS_MAX
+  attr_reader :code, :guesses, :GUESS_MAX
+  attr_accessor :score
 
 
   def initialize
     @code = Code.new()
     @score = ['', '']
     @guesses = 0
+    @GUESS_MAX = 2
+    print_intro
+  end
+  
+  
+  def increment_guesses
+    @guesses += 1
+  end
+  
+  
+  def win?
+    @score[0] == 'XXXX' ? true : false
   end
 
+
+  def display_score
+    puts @score[0] == '' ? '-' : @score[0]
+    puts @score[1] == '' ? '-' : @score[1]
+    puts"\n"
+  end
+  
+  
+  private
 
   def print_intro
     puts "Play Mastermind
@@ -29,23 +48,8 @@ Digits can be from 1 to 6.
 After your guess, feedback is given:
   X means you guessed the right digit in the right position.
   O means you guessed the right digit but in the wrong position.\n
-You have #{@@GUESS_MAX} guesses.\n
-Enter 'p' to start. Enter 'q' at any time to quit."
-  end
-
-
-  def increment(guesses)
-    guesses += 1
-  end
-
-
-  def win?
-    @score[0] == 'XXXX' ? true : false
-  end
-
-  def quit_game
-    puts 'Game over. Play again? [y/n]'
-    gets.chomp
+You have #{@GUESS_MAX} guesses.\n
+Enter a 4 digit number, with each digit between 1 and 6 eg. 2146."
   end
 
 end
