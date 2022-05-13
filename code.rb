@@ -14,27 +14,12 @@ class Code
   def score_guess(guess)
     #eg returns ['XX', 'O']
 
-    score = ['', '']
+    score = []
     code = @code.split('')
     digits = guess.code.split('')
     
-    #Xs
-    digits.each_with_index do |digit, ind|
-      if digit == code[ind]
-        score[0] += 'X'
-        code[ind] = nil
-        digits[ind] = nil
-      end
-    end
-
-    #Os
-    digits.each_with_index do |digit, ind|
-      if digit && code.include?(digit)
-        score[1] += 'O'
-        code[code.index(digit)] = nil
-        digits[ind] = nil
-      end
-    end
+    score[0] = match_exact(digits, code) #Xs
+    score[1] = match_any(digits, code)   #Os
     
     score
   end
@@ -47,5 +32,37 @@ class Code
     4.times { code << DIGITS.sample().to_s }
     code
   end
-  
+
+
+  def match_exact(digits, code)
+    #Xs
+    score = ''
+
+    digits.each_with_index do |digit, ind|
+      if digit == code[ind]
+        score += 'X'
+        code[ind] = nil
+        digits[ind] = nil
+      end
+    end
+
+    score
+  end
+
+
+  def match_any(digits, code)
+    #Os
+    score = ''
+
+    digits.each_with_index do |digit, ind|
+      if digit && code.include?(digit)
+        score += 'O'
+        code[code.index(digit)] = nil
+        digits[ind] = nil
+      end
+    end
+
+    score
+  end
+
 end
