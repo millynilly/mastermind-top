@@ -10,8 +10,7 @@ class Game
   @guesses
   @GUESS_MAX
 
-  attr_reader :code, :guesses, :GUESS_MAX
-  attr_accessor :score, :guess
+  attr_reader :guesses, :GUESS_MAX
 
 
   def initialize
