@@ -56,15 +56,13 @@ class Game
 
 
   def display_result
-
     if win?
-      plurality = @guesses > 1 ? 'es' : ''
-      puts "You won with #{@guesses} guess#{plurality}!"
+      plural = @guesses > 1 ? 'es' : ''
+      puts "You won with #{@guesses} guess#{plural}!"
       puts accolade
     else
       puts "Out of guesses. You lose."
     end
-
     puts "\n"
   end
   
@@ -96,7 +94,7 @@ Enter a 4 digit number, with each digit between 1 and 6 eg. 2146."
     when 6..7
       'Pretty good going.'
     when 8..9
-      'A very respectable score.'
+      'A respectable score.'
     when 10..11
       'You got there.'
     when 12
