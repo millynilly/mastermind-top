@@ -5,7 +5,7 @@ require_relative 'game.rb'
 
 def play
   game = Game.new
-
+  
   until game.win? || game.guesses == game.GUESS_MAX
 
     game.get_guess
@@ -15,7 +15,7 @@ def play
 
   end
 
-  puts game.win? ? "You win!" : "Out of guesses. You lose."
+  game.display_result
   puts 'Play again?'
   play if ['y', 'Y'].include?(gets.chomp)
 
